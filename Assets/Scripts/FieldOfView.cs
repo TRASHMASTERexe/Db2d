@@ -18,9 +18,7 @@ public class FieldOfView : MonoBehaviour
 
     private Vector3 origin = Vector3.zero;
     private Mesh mesh;
-    //private float angle;
-
-    private Vector3 dir;
+    private float angle;
 
     
 
@@ -32,7 +30,6 @@ public class FieldOfView : MonoBehaviour
 
     public void LateUpdate()
     {
-        float angle = -(fov / 2);
         float angleIncrease = fov / raycount;
 
         Vector3[] vertices = new Vector3[raycount +2];
@@ -46,12 +43,12 @@ public class FieldOfView : MonoBehaviour
         for (int i = 0;  i <= raycount; i++)
         {
             Vector3 vertex;
-            RaycastHit2D raycastHit2D = Physics2D.Raycast(origin, Quaternion.Euler(0, angle, 0) * dir, viewDistance, layerMask);
+            RaycastHit2D raycastHit2D = Physics2D.Raycast(origin, GetAngleFromVector(angle), viewDistance, layerMask);
             
 
             if (raycastHit2D.collider == null)
             {
-                vertex = origin + Quaternion.Euler(0, angle, 0) * dir * viewDistance;
+                vertex = origin + GetAngleFromVector(angle) * viewDistance;
             }
             else
             {
@@ -91,12 +88,9 @@ public class FieldOfView : MonoBehaviour
     }
     private float GetAngleFromVectorFloat(Vector3 dir)
     {
-        Debug.Log("angle from vector: " + dir);
         Vector3 normDir = new Vector3(dir.x, dir.y, dir.z).normalized;
-        Debug.Log("normalized angle from vector: " + normDir);
         float n = Mathf.Atan2(normDir.y, normDir.x) * Mathf.Rad2Deg;
         if (n < 0) n += 360;
-        Debug.Log("Resulting angle: " + n);
         return n;
     }
 
@@ -107,9 +101,7 @@ public class FieldOfView : MonoBehaviour
 
     public void setAimDirection (Vector3 aimDirection)
     {
-        dir = aimDirection.normalized;
-        Debug.Log(aimDirection);
-        //angle = GetAngleFromVectorFloat(aimDirection) - fov / 2f + 90;
+        angle = GetAngleFromVectorFloat(aimDirection) - fov / 2f + 90;
     }
 
 }
