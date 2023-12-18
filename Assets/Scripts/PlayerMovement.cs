@@ -15,6 +15,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float moveSpeed = 4;
 
+    Vector3 previousMousePosition;
+
 
     void Update()
     {
@@ -27,16 +29,23 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = PlayerInput * moveSpeed;
 
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 dir = mousePosition - transform.position;
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        if(mousePosition != previousMousePosition)
+        {
+            Vector3 dir = mousePosition - transform.position;
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
-        rb.rotation = angle - 90;
-        foreach(FieldOfView f in fovs)
+            rb.rotation = angle - 90;
+
+            previousMousePosition = mousePosition;
+        }
+
+        foreach (FieldOfView f in fovs)
         {
             f.setAimDirection(transform.up);
             f.SetOrigin(transform.position);
         }
     }
+
 
     public void SetFov(FieldOfView[] fovs)
     {
