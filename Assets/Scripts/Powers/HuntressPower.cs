@@ -8,25 +8,32 @@ public class HuntressPower : KillerPower
 
     [Header("References")]
     [SerializeField]
-    private GameObject HatchetPrefab;
+    private GameObject hatchetPrefab;
     [SerializeField]
-    private GameObject DistanceVisual;
+    private GameObject distanceVisual;
+    [SerializeField]
+    private PlayerMovement playerMovement;
 
     [Header("Stats")]
     [SerializeField]
-    private int Hatchets = 5;
+    private int hatchets = 5;
     [SerializeField]
-    private int HatchetSpeed = 10;
+    private int hatchetSpeed = 20;
     [SerializeField]
-    private float MaxHatchetDistance;
+    private float distanceAimPerSecond = 6;
     [SerializeField]
-    private float distanceAimPerSecond = 4;
+    private float heldMoveSpeed = 5;
+    [SerializeField]
+    private float maxHoldTime = 2;
+    [SerializeField]
+    private float minHoldTime = 0.5f;
+    [SerializeField] 
+    private float baseDistance = 5f;
 
     private GameObject currentVisual;
     private bool isThrowing;
     private float timeHeld = 0;
-    private float maxHoldTime = 3;
-    private float minHoldTime = 0.5f;
+    
     
 
     public override void ActiveAbility()
@@ -40,12 +47,13 @@ public class HuntressPower : KillerPower
             isThrowing = true;
             if(currentVisual == null)
             {
-                currentVisual = Instantiate(DistanceVisual, transform);
+                currentVisual = Instantiate(distanceVisual, transform);
+                playerMovement.adjustMoveSpeed(heldMoveSpeed);
             }
             if(timeHeld <= maxHoldTime)
             {
                 //scale visual
-                currentVisual.transform.localScale = new Vector2(1, distanceAimPerSecond * timeHeld);
+                currentVisual.transform.localScale = new Vector2(1, distanceAimPerSecond * timeHeld + baseDistance);
             }
         }
         else if (isThrowing)
@@ -53,17 +61,20 @@ public class HuntressPower : KillerPower
             if(timeHeld < minHoldTime)
             {
                 timeHeld += Time.deltaTime;
-                currentVisual.transform.localScale = new Vector2(1, distanceAimPerSecond * timeHeld);
+                currentVisual.transform.localScale = new Vector2(1, distanceAimPerSecond * timeHeld + baseDistance);
             }
             else
             {
                 isThrowing = false;
-                
+                playerMovement.resetMoveSpeed();
+                hatchets--;
                 timeHeld = 0;
-                Hatchet hatchet = Instantiate(HatchetPrefab, transform.position, transform.rotation).GetComponent<Hatchet>();
+
+                Hatchet hatchet = Instantiate(hatchetPrefab, transform.position, transform.rotation).GetComponent<Hatchet>();
                 float offset = currentVisual.GetComponent<Collider2D>().bounds.size.magnitude;
                 Vector3 direction = transform.TransformDirection(Vector3.up).normalized;
                 hatchet.CalcDistancetoTravel(transform.position + direction * -offset);
+                hatchet.moveSpeed = hatchetSpeed;
                 Destroy(currentVisual);
             }
             

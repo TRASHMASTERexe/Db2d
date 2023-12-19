@@ -8,21 +8,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5195241979546131770, guid: 52ce029edbe15374787f2c83cfe58e55, type: 3}
-      propertyPath: m_Layer
-      value: 13
+    - target: {fileID: 1308425201931088889, guid: 52ce029edbe15374787f2c83cfe58e55, type: 3}
+      propertyPath: baseDistance
+      value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 6434181968467838720, guid: 52ce029edbe15374787f2c83cfe58e55, type: 3}
-      propertyPath: m_Layer
-      value: 10
+    - target: {fileID: 1308425201931088889, guid: 52ce029edbe15374787f2c83cfe58e55, type: 3}
+      propertyPath: heldMoveSpeed
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6490238816723495139, guid: 52ce029edbe15374787f2c83cfe58e55, type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 2540356306
+      value: 1201658868
       objectReference: {fileID: 0}
     - target: {fileID: 8443225786345003525, guid: 52ce029edbe15374787f2c83cfe58e55, type: 3}
       propertyPath: m_Name
-      value: Huntress Variant
+      value: Huntress
+      objectReference: {fileID: 0}
+    - target: {fileID: 8443225786345003525, guid: 52ce029edbe15374787f2c83cfe58e55, type: 3}
+      propertyPath: m_TagString
+      value: Killer
+      objectReference: {fileID: 0}
+    - target: {fileID: 8979098688241097307, guid: 52ce029edbe15374787f2c83cfe58e55, type: 3}
+      propertyPath: moveSpeed
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9088562264244111188, guid: 52ce029edbe15374787f2c83cfe58e55, type: 3}
       propertyPath: m_LocalPosition.x
@@ -67,30 +75,5 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5195241979546131770, guid: 52ce029edbe15374787f2c83cfe58e55, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5386911445516490109}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52ce029edbe15374787f2c83cfe58e55, type: 3}
---- !u!1 &6117722657138257632 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5195241979546131770, guid: 52ce029edbe15374787f2c83cfe58e55, type: 3}
-  m_PrefabInstance: {fileID: 2089583752163292122}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &5386911445516490109
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6117722657138257632}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 146b2103591a2dd4eaa109a3ede6c666, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HatchetPrefab: {fileID: 6805114532910540715, guid: 6357df53d0c99e64db8ee6129d33b1b3, type: 3}
-  DistanceVisual: {fileID: 332314449396213509, guid: 63bca6a93d064b343ad3d0878e35c9d0, type: 3}
-  Hatchets: 5
-  HatchetSpeed: 10
-  MaxHatchetDistance: 0

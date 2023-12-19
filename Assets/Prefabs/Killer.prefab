@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8192757378576799138}
   - component: {fileID: 8598648776135040275}
   - component: {fileID: 8979098688241097307}
+  - component: {fileID: 1308425201931088889}
   m_Layer: 13
   m_Name: KillerCharacter
   m_TagString: Untagged
@@ -165,6 +166,27 @@ MonoBehaviour:
   fovs: []
   rb: {fileID: 8192757378576799138}
   moveSpeed: 10
+--- !u!114 &1308425201931088889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5195241979546131770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 146b2103591a2dd4eaa109a3ede6c666, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hatchetPrefab: {fileID: 6805114532910540715, guid: 6357df53d0c99e64db8ee6129d33b1b3, type: 3}
+  distanceVisual: {fileID: 332314449396213509, guid: 63bca6a93d064b343ad3d0878e35c9d0, type: 3}
+  playerMovement: {fileID: 8979098688241097307}
+  hatchets: 5
+  hatchetSpeed: 20
+  distanceAimPerSecond: 8
+  heldMoveSpeed: 5
+  maxHoldTime: 1.5
+  minHoldTime: 0.5
 --- !u!1 &6328360690380961636
 GameObject:
   m_ObjectHideFlags: 0
@@ -329,7 +351,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 4116735782
+  GlobalObjectIdHash: 2540356306
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0

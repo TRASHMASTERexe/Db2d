@@ -12,26 +12,28 @@ public class Hatchet : MonoBehaviour
     public float moveSpeed = 5f;
 
     [SerializeField]
-    public float spinSpeed = 180f;
+    private float spinSpeed = 360f;
 
     private Vector2 startLocation;
     private Vector2 oldPos;
     private float totalDistance;
     private float distanceToTravel;
+    private Vector3 direction;
 
     // Update is called once per frame
     void Update()
     {
-        rb.velocity = transform.up * moveSpeed;
         if(totalDistance >= distanceToTravel)
         {
             Destroy(gameObject);
         }
 
+        rb.velocity = direction * moveSpeed;
         totalDistance += Vector2.Distance(transform.position, oldPos);
         oldPos = transform.position;
 
-        transform.Rotate(Vector2.up, spinSpeed * Time.deltaTime);
+        float rotationAmount = spinSpeed * Time.deltaTime;
+        transform.Rotate(0f, 0f, -rotationAmount, Space.Self);
 
 
     }
@@ -40,10 +42,24 @@ public class Hatchet : MonoBehaviour
     {
         startLocation = transform.position;
         oldPos = transform.localPosition;
+        direction = transform.up;
     }
 
     public void CalcDistancetoTravel(Vector2 position)
     {
         distanceToTravel = Vector2.Distance(transform.position, position);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Objects"))
+        {
+            //make hit sound
+            Destroy(gameObject);
+        }
+        else if (collision.gameObject.layer == LayerMask.NameToLayer("Survivor"))
+        {
+            //hit player
+        }
     }
 }

@@ -13,23 +13,59 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private Rigidbody2D rb;
     [SerializeField]
-    private float moveSpeed = 4;
+    private float moveSpeed = 10;
 
+    private float adjustedMoveSpeed;
     Vector3 previousMousePosition;
 
+    public bool movementLocked = false;
+    public bool rotationLocked = false;
+
+
+    private void Start()
+    {
+        adjustedMoveSpeed = moveSpeed;
+    }
 
     void Update()
     {
-        Vector2 PlayerInput; 
+        if(!movementLocked)
+        {
+            MovePlayer();
+        }
+        
+        if(!rotationLocked)
+        {
+            Rotateplayer();
+        }
+
+        UpdateFov();
+    }
+
+    private void MovePlayer()
+    {
+        Vector2 PlayerInput;
         PlayerInput.x = Input.GetAxisRaw("Horizontal");
         PlayerInput.y = Input.GetAxisRaw("Vertical");
 
         PlayerInput.Normalize();
 
-        rb.velocity = PlayerInput * moveSpeed;
+        rb.velocity = PlayerInput * adjustedMoveSpeed;
+    }
 
+    private void UpdateFov()
+    {
+        foreach (FieldOfView f in fovs)
+        {
+            f.setAimDirection(transform.up);
+            f.SetOrigin(transform.position);
+        }
+    }
+
+    private void Rotateplayer()
+    {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        if(mousePosition != previousMousePosition)
+        if (mousePosition != previousMousePosition)
         {
             Vector3 dir = mousePosition - transform.position;
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
@@ -38,17 +74,26 @@ public class PlayerMovement : MonoBehaviour
 
             previousMousePosition = mousePosition;
         }
-
-        foreach (FieldOfView f in fovs)
-        {
-            f.setAimDirection(transform.up);
-            f.SetOrigin(transform.position);
-        }
     }
-
 
     public void SetFov(FieldOfView[] fovs)
     {
         this.fovs = fovs;
+    }
+
+    public void setMoveSpeed(float moveSpeed)
+    {
+        this.moveSpeed = moveSpeed;
+        this.adjustedMoveSpeed = moveSpeed;
+    }
+
+    public void adjustMoveSpeed(float moveSpeed)
+    {
+        this.adjustedMoveSpeed = moveSpeed;
+    }
+
+    public void resetMoveSpeed()
+    {
+        this.adjustedMoveSpeed = moveSpeed;
     }
 }
